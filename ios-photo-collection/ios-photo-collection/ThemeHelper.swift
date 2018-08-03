@@ -20,12 +20,18 @@ class ThemeHelper {
 		userdefaults.set("Green", forKey: themePreferenceKey)
 	}
 	
+	
+	var themePreference : String? {
+		return userdefaults.string(forKey: themePreferenceKey)
+	}
+	
 	init () {
 		if themePreference == nil {
 			setThemePreferenceToGreen()
 		}
 	}
 	
-	let themePreference: String? = UserDefaults.standard.string(forKey: "abcwearefree")
+	
+	
 	
 }
