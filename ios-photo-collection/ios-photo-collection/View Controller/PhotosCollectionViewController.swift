@@ -14,7 +14,7 @@ class PhotosCollectionViewController: UICollectionViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-
+		setTheme()
         // Uncomment the following line to preserve selection between presentations
         // self.clearsSelectionOnViewWillAppear = false
 
@@ -24,7 +24,11 @@ class PhotosCollectionViewController: UICollectionViewController {
         // Do any additional setup after loading the view.
     }
 
-
+	override func viewWillAppear(_ animated: Bool) {
+		super.viewWillAppear(animated)
+		collectionView?.reloadData()
+		setTheme()
+	}
     
     // MARK: - Navigation
 
@@ -102,7 +106,7 @@ class PhotosCollectionViewController: UICollectionViewController {
 	
 	func setTheme() {
 		guard let themePreference = themeHelper.themePreference else { return }
-		view.backgroundColor = themePreference == "Dark" ? .gray : .green
+		collectionView?.backgroundColor = themePreference == "Dark" ? .gray : .green
 	}
 	
 	var photoController = PhotoController()

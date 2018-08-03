@@ -23,17 +23,19 @@ class PhotoDetailViewController: UIViewController, UIImagePickerControllerDelega
 	
 	private func updateViews() {
 		textField.text = photo?.title
-		imageView.image = UIImage(data:(photo?.imageData)!)
+		guard let imageData = photo?.imageData else { return }
+		imageView.image = UIImage(data: imageData)
 	}
 	
 	@IBAction func savePhoto(_ sender: Any) {
-		let imageData = UIImagePNGRepresentation(imageView.image!)
+		guard let image = imageView.image else { return }
+		let imageData = UIImagePNGRepresentation(image)
+		let title = textField.text
 		if photo != nil {
-			photo?.title = textField.text!
-			photo?.imageData = imageData!
+			photoController?.Update(photo: photo!, imageData: imageData!, title: title!)
 			_ = navigationController?.popViewController(animated: true)
 		} else {
-			photo = Photo(imageData: imageData!, title: textField.text!)
+			_ = photoController?.Create(imageData: imageData!, title: title!)
 			_ = navigationController?.popViewController(animated: true)
 		}
 	}
